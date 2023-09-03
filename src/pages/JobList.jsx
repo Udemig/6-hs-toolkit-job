@@ -24,6 +24,7 @@ const JobList = () => {
         Bulunan ( {state.mainJobs.length} ) iş arasından ({' '}
         {state.jobs.length} ) tanesini görüntülüyorsunuz
       </h3>
+
       <section className="list-section">
         {/* Eğerki api'den cevap bekleniyorsa */}
         {!state.initialized && <p>Yükleniyor...</p>}

@@ -50,6 +50,44 @@ const jobSlice = createSlice({
 
       state.jobs = filtred;
     },
+
+    filterByType: (state, action) => {
+      state.jobs = state.mainJobs.filter(
+        (job) => job.type === action.payload
+      );
+    },
+
+    sortJobs: (state, action) => {
+      switch (action.payload) {
+        case 'a-z':
+          state.jobs.sort((a, b) =>
+            a.company.localeCompare(b.company)
+          );
+          break;
+        case 'z-a':
+          state.jobs.sort((a, b) =>
+            b.company.localeCompare(a.company)
+          );
+          break;
+        case 'En Yeni':
+          state.jobs.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          );
+          break;
+        case 'En Eski':
+          state.jobs.sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+          );
+          break;
+
+        default:
+          return state;
+      }
+    },
+
+    clearFilters: (state) => {
+      state.jobs = state.mainJobs;
+    },
   },
 });
 
@@ -59,6 +97,9 @@ export const {
   addJob,
   filterBySearch,
   filterByStatus,
+  filterByType,
+  sortJobs,
+  clearFilters,
 } = jobSlice.actions;
 
 export default jobSlice.reducer;
